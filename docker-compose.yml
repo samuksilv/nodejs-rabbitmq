@@ -1,0 +1,30 @@
+version: "3.4"
+
+services:
+
+  rabbit:
+    environment:
+      RABBITMQ_ERLANG_COOKIE: 'secret_cookie'
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "admin"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    networks:
+      - rabbitmq_network
+    hostname: rabbit
+    image: "rabbitmq:3-management"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    tty: true
+    volumes:
+      - rabbit:/var/lib/rabbitmq
+      - conf:/etc/rabbitmq/
+    command:  bash -c "sleep 10; rabbitmq-server;"
+
+volumes:
+  rabbit:
+  conf:
+
+networks:
+  rabbitmq_network:
+    driver: bridge
