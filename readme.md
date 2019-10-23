@@ -2,7 +2,7 @@
 
 - this repository is for studying RabbitmMQ with docker;
 - I created a docker-compose  with configurations do deploy a RabbitmMQ;
-- so I a implemented a producer with nodejs to send messages to "exchanges" of RabbitmMQ and then exchange send direct to "queue";
+- so I a implemented a producer with nodejs to send messages to "exchanges" of RabbitmMQ and then the exchange send direct to "queue";
 - then I a implemented a consumer for consume messages of queue;
 - finally I created a dockerFile for this apps and add to my docker-compose;
 
