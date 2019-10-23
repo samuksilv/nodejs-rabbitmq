@@ -1,0 +1,19 @@
+{
+  "name": "worker-rabbitmq-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "nodemon":"/node_modules/nodemon/bin/nodemon.js",
+    "dev":"nodemon src/consumer.js",
+    "start":"node src/consumer.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.5.5",
+    "colors": "^1.4.0",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}

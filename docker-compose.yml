@@ -3,15 +3,12 @@ version: "3.4"
 services:
 
   rabbit:
-    environment:
-      RABBITMQ_ERLANG_COOKIE: 'secret_cookie'
-      RABBITMQ_DEFAULT_USER: "admin"
-      RABBITMQ_DEFAULT_PASS: "admin"
-      RABBITMQ_DEFAULT_VHOST: "/"
-    networks:
-      - rabbitmq_network
     hostname: rabbit
     image: "rabbitmq:3-management"
+    env_file: 
+      - ./docker-compose.env
+    networks:
+      - rabbitmq_network
     ports:
       - "15672:15672"
       - "5672:5672"
@@ -19,7 +16,41 @@ services:
     volumes:
       - rabbit:/var/lib/rabbitmq
       - conf:/etc/rabbitmq/
-    command:  bash -c "sleep 10; rabbitmq-server;"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:15672"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+
+  consumer:
+    build:
+      context: ./worker/
+    env_file: 
+      - ./docker-compose.env
+    restart: always
+    networks:
+      - rabbitmq_network
+    depends_on: 
+      - rabbit
+      - producer
+    links: 
+      - rabbit
+      - producer
+
+  producer:
+    build:
+      context: ./api/
+    env_file: 
+      - ./docker-compose.env
+    ports:
+      - "3000:3000"
+    restart: on-failure
+    networks:
+      - rabbitmq_network
+    depends_on: 
+      - rabbit
+    links: 
+      - rabbit
 
 volumes:
   rabbit:

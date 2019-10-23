@@ -1,2 +1,3 @@
 enabled-plugins
 node_modules
+*.env
