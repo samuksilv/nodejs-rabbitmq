@@ -1,6 +1,6 @@
 # Example of Producer and Consumer with rabbitMQ
 
-- this repository is for studying RabbitmMQ with docker;
+- this repository is for studying RabbitmMQ with docker and nodejs;
 - I created a docker-compose  with configurations do deploy a RabbitmMQ;
 - so I a implemented a producer with nodejs to send messages to "exchanges" of RabbitmMQ and then the exchange send direct to "queue";
 - then I a implemented a consumer for consume messages of queue;
