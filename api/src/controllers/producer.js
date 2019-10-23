@@ -48,7 +48,7 @@ const producer = async (req, res) => {
         }
 
         await channel.close();
-        res.status(200).send("message sended with sucessfull!");
+        res.status(200).send("messages sent successfully!");
 
     } catch (err) {
         console.error(err);
