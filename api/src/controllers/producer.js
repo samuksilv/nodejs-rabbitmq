@@ -7,21 +7,21 @@ const producer = async (req, res) => {
 
     const connection = await amqp.connect({
         hostname: process.env.RABBITMQ_HOST,
-        port: process.env.RABBITMQ_PORT ,
+        port: process.env.RABBITMQ_PORT,
         username: process.env.RABBITMQ_USER,
         password: process.env.RABBITMQ_PASSWORD,
         protocol: process.env.RABBITMQ_PROTOCOL
     });
 
     try {
-        const max = new Number(req.query.max_items || 5000000) ;
-        console.log("*****************"+ max);
+        const max = new Number(req.query.max_items || 5000000);
+        console.log("*****************" + max);
 
         const channel = await connection.createChannel();
 
         const exchangeName = process.env.RABBITMQ_EXCHANGE_NAME;
         const queueName = process.env.RABBITMQ_QUEUE_NAME;
-        const key =  process.env.RABBITMQ_ROUTE_KEY;
+        const key = process.env.RABBITMQ_ROUTE_KEY;
         const msg = "It's working bro!";
 
         const exchange = await channel.assertExchange(exchangeName, 'direct', {
@@ -42,10 +42,12 @@ const producer = async (req, res) => {
                     persistent: true,
                     mandatory: true
                 });
+
+            // if(published)
+            // console.log(`[x] Sent message with key ==> [${key}], message ==> [${msg + i }]`.yellow);
         }
 
         await channel.close();
-        // console.log(`[x] Sent message with key ==> [${key}], message ==> [${msg}]`.yellow);
         res.status(200).send("message sended with sucessfull!");
 
     } catch (err) {
