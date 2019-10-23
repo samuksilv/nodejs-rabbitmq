@@ -22,7 +22,7 @@ const producer = async (req, res) => {
         const exchangeName = process.env.RABBITMQ_EXCHANGE_NAME;
         const queueName = process.env.RABBITMQ_QUEUE_NAME;
         const key =  process.env.RABBITMQ_ROUTE_KEY;
-        const msg = "Hello World! It's work man!";
+        const msg = "Hello World! It's work bro!";
 
         const exchange = await channel.assertExchange(exchangeName, 'direct', {
             durable: true,
