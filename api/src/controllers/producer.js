@@ -42,7 +42,6 @@ const producer = async (req, res) => {
                     persistent: true,
                     mandatory: true
                 });
-
             // if(published)
             // console.log(`[x] Sent message with key ==> [${key}], message ==> [${msg + i }]`.yellow);
         }
